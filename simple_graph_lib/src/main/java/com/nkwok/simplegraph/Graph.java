@@ -140,7 +140,7 @@ public class Graph implements Serializable {
 	 * @param vertex
 	 */
 	private void addVertex(Vertex vertex) {
-		if (! vertices.contains(vertex)) {
+		if (vertex != null && ! vertices.contains(vertex)) {
 			synchronized(this) {
 				vertices.add(vertex);
 			}
@@ -165,7 +165,7 @@ public class Graph implements Serializable {
 	 */
 	public void addEdge(Edge edge) {
 
-		if (! edges.contains(edge)) {
+		if (edge != null && ! edges.contains(edge)) {
 			synchronized(this) {
 				if (getVertex(edge.getFromVertex()) == null) {
 					vertices.add(new Vertex(edge.getFromVertex()));
@@ -190,7 +190,7 @@ public class Graph implements Serializable {
 	 * @return true - remove success, false if not
 	 */
 	private boolean removeVertex(Vertex vertex) {
-		if (vertices.contains(vertex)) {
+		if (vertex!= null && vertices.contains(vertex)) {
 			synchronized(this) {
 				return vertices.remove(vertex);
 			}
@@ -207,7 +207,7 @@ public class Graph implements Serializable {
 	 */
 	public boolean removeEdge(Edge edge) {
 		
-		if (edges.contains(edge)) {
+		if (edge != null && edges.contains(edge)) {
 			boolean found = false;
 			
 			synchronized(this) {
@@ -241,6 +241,9 @@ public class Graph implements Serializable {
 	 * @return vertex object if found; otherwise, null
 	 */
 	public synchronized Vertex getVertex(final String nodeName) {
+		if (nodeName == null) {
+			return null;
+		}
 		return vertices
 			.stream()
 			.filter(k -> k.getName().equals(nodeName))
@@ -254,7 +257,10 @@ public class Graph implements Serializable {
 	 * @param sourceNode
 	 * @return list of neighbors' vertices from the source node
 	 */
-	public List<Vertex> getAdjacencyList(String sourceNode) {		
+	public List<Vertex> getAdjacencyList(String sourceNode) {	
+		if (sourceNode == null) {
+			return new ArrayList<>();
+		}
 		List<Vertex> adjacencyList = edges
 				.stream()
 				.filter(k -> k.getFromVertex().equals(sourceNode))
@@ -272,6 +278,10 @@ public class Graph implements Serializable {
 	 */
 	public List<Map<Vertex, Integer>> getAdjacencyListWithWeight(String sourceNode) {
 		List<Map<Vertex, Integer>> adjacencyList = new ArrayList<>();
+		
+		if (sourceNode == null) {
+			return adjacencyList;
+		}
 		
 		for(Edge edge: edges) {
 			if (edge.getFromVertex().compareTo(sourceNode) == 0) {
@@ -294,10 +304,10 @@ public class Graph implements Serializable {
 	public List<List<String>> showConnectivity(String startNode, String endNode) {
 		
 		List<List<String>> resultList = new LinkedList<>();
-		if (getVertex(endNode) == null) {
+		if (startNode == null || getVertex(endNode) == null) {
 			return resultList;
 		}
-		if (getVertex(startNode) == null) {
+		if (endNode == null || getVertex(startNode) == null) {
 			return resultList;
 		}
 

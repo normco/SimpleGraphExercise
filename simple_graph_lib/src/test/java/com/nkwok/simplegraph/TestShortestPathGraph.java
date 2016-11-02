@@ -31,6 +31,22 @@ import org.junit.Test;
  *
  */
 public class TestShortestPathGraph {
+	/**
+	 *  Sample Graph used for the test
+	            1                            5
+   Node_0 --------> Node_1 ------------------------------------> Node_10
+      |      1                   186                               ^
+      |-----------> Node_2 ------------> Node_6                    |
+      |         183   | 103                       1                |
+      | Node_3 ------>+-----------------> Node_7 ---|              |
+      |               250                84         v        1     |
+      |   Node_5 ----------> Node_8 -----------> Node_9 ---------->|
+      |      1                       2             ^               |
+      |-----------> Node_4 ------------------------|               |
+      |       7                                                    |
+      \------------------------------------------------------------/
+	 * 
+	 */
 	private Set<Edge> edges = new HashSet<Edge>();
     private String expectedShortestPath = "Node_0 (0) -> Node_4 (1) -> Node_9 (3) -> Node_10 (4)";
 

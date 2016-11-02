@@ -19,7 +19,12 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-
+/**
+ * 
+ * @author nkwok
+ * @version 1.0
+ *
+ */
 public class TestGraph {
 	
 	private Set<Vertex> vertices = new HashSet<Vertex>();

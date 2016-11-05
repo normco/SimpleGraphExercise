@@ -120,6 +120,7 @@ public class ShortestPathGraph extends Graph{
 			}
 		}
 		
+		
 		// Build result into a LinkedList with Vertex and calculated weight
 		LinkedList<Map<Vertex, Integer>> shortestPath = new LinkedList<>();
 		final Vertex destNode = destVertex;
@@ -217,13 +218,10 @@ public class ShortestPathGraph extends Graph{
 		List<List<String>> connPaths = sp.showConnectivity(names[0], names[names.length - 1]);
         System.out.println("\nShow paths in " + ChronoUnit.MILLIS.between(startTime, Instant.now()) + " ms");
 		
-		for(List<String> subList: connPaths) {
-			String marker = "";
-			for(String path: subList) {
-				System.out.print(marker + path);
-				marker = " -> ";
-			}
-			System.out.println();
-		}
+		connPaths
+			.forEach(k -> {
+				System.out.println(k.stream().collect(Collectors.joining(" -> "))
+				);				
+		});
 	}
 }
